@@ -6,20 +6,32 @@ from django.db import models
 class Categories(models.Model):
     name=models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.name
+
 class Brand(models.Model):   
     name=models.CharField(max_length=200)
+    def __str__(self):
+        return self.name
+    
 class Color(models.Model):
     name=models.CharField(max_length=200)
     code=models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
 class Filter_Price(models.Model):
     FILTER_PRICE=(
-        ('1000 TO 2000','1000 TO 2000'),
-        ('2000 TO 3000','2000 TO 3000'),
-        ('3000 TO 4000','3000 TO 4000'),
-        ('4000 TO 5000','4000 TO 5000'),
-        ('5000 TO 6000','5000 TO 6000'),
+        ('1000 to 2000','1000 to 2000'),
+        ('2000 to 3000','2000 to 3000'),
+        ('3000 to 4000','3000 to 4000'),
+        ('4000 to 5000','4000 to 5000'),
+        ('5000 to 6000','5000 to 6000'),
         )
     Price=models.CharField(choices=FILTER_PRICE,max_length=60)
+
+    def __str__(self):
+        return self.Price
 
 
 class Product(models.Model):
@@ -45,8 +57,25 @@ class Product(models.Model):
     color=models.ForeignKey(Color,on_delete=models.CASCADE)
     brand=models.ForeignKey(Brand,on_delete=models.CASCADE)
     filter_price=models.ForeignKey(Filter_Price,on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.name
 
-    def save(self,*ags,**kawgrs):
+    def save(self,*args,**kwargs):
         if self.UNIQUE_Id is None and self.created_date and self.id:
             self.UNIQUE_Id=self.created_date.strftime('75%Y%m%d23') + str(self.id)
         return super().save(*args,**kwargs)
+
+class Images(models.Model):
+    images=models.ImageField(upload_to='Product_IMG/IMG/%Y%m%d')
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+class Tag(models.Model):
+    name=models.CharField(max_length=200)
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
