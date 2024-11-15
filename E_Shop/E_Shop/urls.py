@@ -8,4 +8,5 @@ from. import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index,name="index" ),
+    path('Products/',views.Products,name="Products")
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
