@@ -48,7 +48,7 @@ class Product(models.Model):
     price=models.IntegerField()
     condition=models.CharField(choices=CONDITIONS,max_length=100)
     information=models.TextField()
-    descriptions=models.TextField()
+    description=models.TextField()
     stock=models.CharField(choices=STOCK,max_length=100)
     status=models.CharField(choices=STATUS,max_length=200)
     created_date=models.DateTimeField(default=timezone.now)
@@ -71,7 +71,7 @@ class Images(models.Model):
     product=models.ForeignKey(Product,on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.images.name
 
 class Tag(models.Model):
     name=models.CharField(max_length=200)

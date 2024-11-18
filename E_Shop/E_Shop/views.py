@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.db.models import Count
+from django.db.models import Q , Count
 from Store_app.models import *
 
 def index (request):
@@ -17,7 +17,10 @@ def Products (request):
     colors=  Color.objects.all()
     filter_price= Filter_Price.objects.all()
     brand = Brand.objects.annotate(product_count=Count('product'))
-    image=Images.objects.filter(Product=products)
+
+
+    
+    query= request.GET.get('query','')
     
     CATID=request.GET.get('Categories')
     FILID=request.GET.get('Filter_price')
@@ -50,8 +53,11 @@ def Products (request):
         products=Product.objects.filter(status='Publish').order_by('price')
     elif PIRCEHIGHTOLOW:
         products=Product.objects.filter(status='Publish').order_by('-price')
+    elif query:
+        products=Product.objects.filter(Q(name__icontains=query)|Q(description__icontains=query)|Q(information__icontains=query))
     else:
         products=Product.objects.filter(status='Publish')
+
 
     context = {
         'product':products,
@@ -59,8 +65,10 @@ def Products (request):
         'filter_price':filter_price,
         'color':colors,
         'brand':brand,
-        'imaage':image
         
     }
 
     return render(request,"product/product.html",context)
+
+def Product_details(request):
+    return render (request,'product/product_detail.html')

@@ -291,7 +291,9 @@
                         <!-- Shop Bottom Area Start -->
                         <div class="shop-bottom-area">
 
-
+                          {% if product|length < 1 %}
+                          <p>No Product Found</p>
+                          {%endif%}
                             <!-- Tab Content Area Start -->
                             <div class="row">
                                 <div class="col">
@@ -313,7 +315,7 @@
                                                         </div>
                                                         <div class="content">
                                                             <span class="category"><a href="#">{{p.categories}}</a></span>
-                                                            <h5 class="title"><a href="single-product.html" class="d-inline-block text-truncate" style="max-width: 190px;">{{p.name}}
+                                                            <h5 class="title"><a href="{%url p.id%}" class="d-inline-block text-truncate" style="max-width: 190px;">{{p.name}}
                                                                 </a>
                                                             </h5>
                                                             <span class="price">
@@ -325,7 +327,7 @@
                                                                 class="pe-7s-shopbag"></i></button>
                                                             <button class="action wishlist" title="Wishlist" data-bs-toggle="modal" data-bs-target="#exampleModal-Wishlist"><i
                                                                     class="pe-7s-like"></i></button>
-                                                            <button class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="pe-7s-look"></i></button>
+                                                            <button class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal-{{forloop.counter}}"><i class="pe-7s-look"></i></button>
                                                             <button class="action compare" title="Compare" data-bs-toggle="modal" data-bs-target="#exampleModal-Compare"><i
                                                                     class="pe-7s-refresh-2"></i></button>
                                                         </div>
@@ -369,7 +371,7 @@
                                                                         class="pe-7s-shopbag"></i></button>
                                                                     <button class="action wishlist" title="Wishlist" data-bs-toggle="modal" data-bs-target="#exampleModal-Wishlist"><i
                                                                             class="pe-7s-like"></i></button>
-                                                                    <button class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="pe-7s-look"></i></button>
+                                                                    <button class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal-{{forloop.counter}}"><i class="pe-7s-look"></i></button>
                                                                     <button class="action compare" title="Compare" data-bs-toggle="modal" data-bs-target="#exampleModal-Compare"><i
                                                                             class="pe-7s-refresh-2"></i></button>
                                                                 </div>
@@ -383,8 +385,6 @@
                                 </div>
                             </div>
                             <!-- Tab Content Area End -->
-
-
 
 
                             <!--  Pagination Area Start -->
