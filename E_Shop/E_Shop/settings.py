@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Store_app',
+    'ckeditor'
 ]
 
 MIDDLEWARE = [

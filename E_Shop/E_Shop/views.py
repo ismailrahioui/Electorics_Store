@@ -70,5 +70,9 @@ def Products (request):
 
     return render(request,"product/product.html",context)
 
-def Product_details(request):
-    return render (request,'product/product_detail.html')
+def Product_details(request,pk):
+    prod=Product.objects.filter(id=pk).first()
+    context={
+        'prod':prod
+    }
+    return render (request,'product/product_detail.html',context)
